@@ -1,0 +1,601 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ds\_assignement\_aliev}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}For source code (Linked List implementation, }
+        \PY{c+c1}{\PYZsh{}parsing etc.) scroll to the end of this }
+        \PY{c+c1}{\PYZsh{}document}
+        
+        
+        \PY{c+c1}{\PYZsh{}import necessary libraries and running the module}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sbn}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{run} parse\PYZus{}documents.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}sorting dataframe}
+        \PY{n}{df} \PY{o}{=} \PY{n}{docs}\PY{o}{.}\PY{n}{to\PYZus{}pd\PYZus{}dataframe}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}       doc1  doc2  doc3  sum
+        the  106.0  12.0  69.0  187
+        of    64.0   6.0  55.0  125
+        and   35.0   3.0  53.0   91
+        a     39.0   5.0  28.0   72
+        in    29.0   3.0  31.0   63
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}plotting the distribution}
+        \PY{n}{a4\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{a4\PYZus{}dims}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word count proportion in all of the 3 documents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.92}\PY{p}{,} 
+                 \PY{n}{s} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The distribution of words looks heavily right skewed, }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{with most bulk (more than \PYZti{}95}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) occuring 1\PYZhy{}10 times.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} 
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Let}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s remove outliers }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{by cutting out values that occur more than 20 times}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sbn}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f3a6ae7c400>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}removing outliers}
+        \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{20}\PY{p}{]}
+        \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}         doc1  doc2  doc3  sum
+        it       9.0   NaN   9.0   18
+        soviet  16.0   NaN   NaN   16
+        we       NaN   1.0  15.0   16
+        are      4.0   1.0  11.0   16
+        book    11.0   3.0   NaN   14
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}massaging dataframe to plot by words}
+        \PY{n}{df\PYZus{}to\PYZus{}plot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{df2}\PY{o}{.}\PY{n}{index}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{df\PYZus{}to\PYZus{}plot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}to\PYZus{}plot}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                        \PY{n}{index}\PY{o}{=}\PY{n}{df\PYZus{}to\PYZus{}plot}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}creating a plot showing each word frequency}
+        \PY{n}{a4\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{a4\PYZus{}dims}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Word count proportion in all of the 3 documents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.92}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The distribution is still right skewed, }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{however we can see that for most words it is uniform}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sbn}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df\PYZus{}to\PYZus{}plot}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f3a6ae85940>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}source code for data structures used for this assignement}
+        \PY{o}{!}pygmentize \PYZhy{}g parse\PYZus{}documents.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-white}{\# regular expressions}
+\textcolor{ansi-blue}{import} \textcolor{ansi-cyan}{re}
+\textcolor{ansi-white}{\# pandas module to convert custom data structure to DataFrame for plotting}
+\textcolor{ansi-blue}{import} \textcolor{ansi-cyan}{pandas} \textcolor{ansi-blue}{as} \textcolor{ansi-cyan}{pd}
+
+
+\textcolor{ansi-white}{\# Will be used by DocumentLinkedList, each node is word count in one document}
+\textcolor{ansi-blue}{class} \textcolor{ansi-green}{DocumentNode}:
+    next\_node = \textcolor{ansi-cyan}{None}
+    prev\_node = \textcolor{ansi-cyan}{None}
+
+    \textcolor{ansi-white}{\# Constructor}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_init\_\_}(\textcolor{ansi-cyan}{self}, word\_count, doc\_num):
+        \textcolor{ansi-cyan}{self}.word\_count = word\_count
+        \textcolor{ansi-cyan}{self}.document\_num = doc\_num
+
+    \textcolor{ansi-white}{\# String representation for print and out}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_str\_\_}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{return} [\textcolor{ansi-cyan}{self}.word\_count, \textcolor{ansi-cyan}{self}.document\_num].\textcolor{ansi-green}{\_\_str\_\_}()
+
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_repr\_\_}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{return} [\textcolor{ansi-cyan}{self}.word\_count, \textcolor{ansi-cyan}{self}.document\_num].\textcolor{ansi-green}{\_\_str\_\_}()
+
+    \textcolor{ansi-white}{\# Check if there is a link next node}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{has\_next}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{if} \textcolor{ansi-cyan}{self}.next\_node \textcolor{ansi-magenta}{is} \textcolor{ansi-magenta}{not} \textcolor{ansi-cyan}{None}:
+            \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{True}
+        \textcolor{ansi-blue}{else}:
+            \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{False}
+
+    \textcolor{ansi-white}{\# Check if there is a link previous node}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{has\_prev}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{if} \textcolor{ansi-cyan}{self}.prev\_node \textcolor{ansi-magenta}{is} \textcolor{ansi-magenta}{not} \textcolor{ansi-cyan}{None}:
+            \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{True}
+        \textcolor{ansi-blue}{else}:
+            \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{False}
+
+
+\textcolor{ansi-white}{\# Contains word counts for each document provided by linking DocumentNodes}
+\textcolor{ansi-blue}{class} \textcolor{ansi-green}{DocumentLinkedList}:
+    length = \textcolor{ansi-blue}{0}
+    head = \textcolor{ansi-cyan}{None}
+    tail = \textcolor{ansi-cyan}{None}
+
+    \textcolor{ansi-white}{\# Constructor for class}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_init\_\_}(\textcolor{ansi-cyan}{self}, node):
+        \textcolor{ansi-cyan}{self}.head = node
+        \textcolor{ansi-cyan}{self}.length += \textcolor{ansi-blue}{1}
+
+    \textcolor{ansi-white}{\# Makes the class iterable, iterates over each DocumentNode}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_iter\_\_}(\textcolor{ansi-cyan}{self}):
+        current = \textcolor{ansi-cyan}{self}.head
+        \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} current.has\_next():
+            \textcolor{ansi-blue}{yield} current
+        \textcolor{ansi-blue}{else}:
+            \textcolor{ansi-blue}{while} \textcolor{ansi-cyan}{True}:
+                \textcolor{ansi-blue}{yield} current
+                current = current.next\_node
+                \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} current.has\_next():
+                    \textcolor{ansi-blue}{yield} current
+                    \textcolor{ansi-blue}{break}
+
+    \textcolor{ansi-white}{\# String representation for print and out}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_str\_\_}(\textcolor{ansi-cyan}{self}):
+        print\_str = \textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{'}
+        \textcolor{ansi-blue}{for} i \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}:
+            print\_str = print\_str + i.\textcolor{ansi-green}{\_\_str\_\_}()
+        \textcolor{ansi-blue}{return} print\_str
+
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_repr\_\_}(\textcolor{ansi-cyan}{self}):
+        print\_str = \textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{'}
+        \textcolor{ansi-blue}{for} i \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}:
+            print\_str = print\_str + i.\textcolor{ansi-green}{\_\_str\_\_}()
+        \textcolor{ansi-blue}{return} print\_str
+
+    \textcolor{ansi-white}{\# Provide data to len() function on number of DocumentNodes contained in the list}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_len\_\_}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{self}.length
+
+    \textcolor{ansi-white}{\# Appends new node to the end of the list}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{append}(\textcolor{ansi-cyan}{self}, node):
+        \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} \textcolor{ansi-cyan}{self}.head.has\_next():
+            \textcolor{ansi-cyan}{self}.head.next\_node = node
+            node.prev\_node = \textcolor{ansi-cyan}{self}.head
+            \textcolor{ansi-cyan}{self}.tail = node
+            \textcolor{ansi-cyan}{self}.length += \textcolor{ansi-blue}{1}
+        \textcolor{ansi-blue}{else}:
+            current = \textcolor{ansi-cyan}{self}.head
+            \textcolor{ansi-blue}{while} \textcolor{ansi-cyan}{True}:
+                current = current.next\_node
+                \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} current.has\_next():
+                    current.next\_node = node
+                    current.next\_node.prev\_node = current
+                    \textcolor{ansi-cyan}{self}.tail = node
+                    \textcolor{ansi-cyan}{self}.length += \textcolor{ansi-blue}{1}
+                    \textcolor{ansi-blue}{break}
+
+    \textcolor{ansi-white}{\# Removes DocumentNode, document number has to be specified}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{remove}(\textcolor{ansi-cyan}{self}, doc\_num):
+        \textcolor{ansi-blue}{for} i \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}:
+            \textcolor{ansi-blue}{if} i.document\_num == doc\_num:
+                prev\_node = i.prev\_node
+                next\_node = i.next\_node
+                prev\_node.next\_node = next\_node
+                next\_node.prev\_node = prev\_node
+                \textcolor{ansi-blue}{del} i
+
+    \textcolor{ansi-white}{\# Returns sum of word counts in all DocumentNodes}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{sum\_words}(\textcolor{ansi-cyan}{self}):
+        sum\_count = \textcolor{ansi-blue}{0}
+        \textcolor{ansi-blue}{for} i \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}:
+            sum\_count += i.word\_count
+        \textcolor{ansi-blue}{return} sum\_count
+
+
+\textcolor{ansi-white}{\# Class containing parsed file}
+\textcolor{ansi-blue}{class} \textcolor{ansi-green}{Documents}:
+    \textcolor{ansi-white}{\# Dictionary to hold key -> DocumentLinkedList}
+    dict\_words = \textcolor{ansi-cyan}{dict}()
+    documents\_num = \textcolor{ansi-blue}{0}
+
+    \textcolor{ansi-white}{\# Constructor}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_init\_\_}(\textcolor{ansi-cyan}{self}, datafile):
+        \textcolor{ansi-white}{\# with open {\ldots} statement makes sure that file is closed after}
+        \textcolor{ansi-white}{\# constructor is done with it}
+        \textcolor{ansi-blue}{with} \textcolor{ansi-cyan}{open}(datafile) \textcolor{ansi-blue}{as} f:
+            words = []
+            \textcolor{ansi-white}{\# compile regex matching end of the document, tags and dates}
+            end\_of\_document = re.compile(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{</doc>}\textcolor{ansi-yellow}{'})
+            tag = re.compile(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{\^{}<}\textcolor{ansi-yellow}{'})
+            numbers = re.compile(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{[0-9+]}\textcolor{ansi-yellow}{'})
+            \textcolor{ansi-blue}{for} line \textcolor{ansi-magenta}{in} f:
+                \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} tag.match(line):
+                    \textcolor{ansi-blue}{for} word \textcolor{ansi-magenta}{in} line.lower().strip().split():
+                        \textcolor{ansi-white}{\# Removing special characters and plural form of a word}
+                        word = re.sub(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{[!?:.,}\textcolor{ansi-yellow}{"}\textcolor{ansi-yellow}{\textbackslash{}'}\textcolor{ansi-yellow}{();\&\$/}\textcolor{ansi-yellow}{\textbackslash{}}\textcolor{ansi-yellow}{-]|s\$}\textcolor{ansi-yellow}{'}, \textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{'}, word)
+                        \textcolor{ansi-white}{\# If word is not a number}
+                        \textcolor{ansi-blue}{if} \textcolor{ansi-magenta}{not} numbers.match(word):
+                            words.append(word)
+                \textcolor{ansi-white}{\# If end of a document is reached append all the words in to the words\_dict}
+                \textcolor{ansi-white}{\# variable with DocumentLinkedList, if word already exists update the DLL}
+                \textcolor{ansi-blue}{if} end\_of\_document.match(line):
+                    \textcolor{ansi-cyan}{self}.documents\_num += \textcolor{ansi-blue}{1}
+                    \textcolor{ansi-blue}{for} word \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{set}(words):
+                        word\_count = words.count(word)
+                        \textcolor{ansi-blue}{if} word \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}.dict\_words:
+                            new\_node = DocumentNode(word\_count, \textcolor{ansi-cyan}{self}.documents\_num)
+                            head\_node = \textcolor{ansi-cyan}{self}.dict\_words[word]
+                            head\_node.append(new\_node)
+                        \textcolor{ansi-blue}{else}:
+                            new\_node = DocumentNode(word\_count, \textcolor{ansi-cyan}{self}.documents\_num)
+                            \textcolor{ansi-cyan}{self}.dict\_words[word] = DocumentLinkedList(new\_node)
+                    words = []
+        \textcolor{ansi-white}{\# Remove '' key}
+        \textcolor{ansi-blue}{if} \textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{'} \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}.dict\_words.keys():
+            \textcolor{ansi-blue}{del} \textcolor{ansi-cyan}{self}.dict\_words[\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{'}]
+
+    \textcolor{ansi-white}{\# returns number of documents parsed into the class}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_len\_\_}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{self}.documents\_num
+
+    \textcolor{ansi-white}{\# String representation for print and out}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_str\_\_}(\textcolor{ansi-cyan}{self}):
+        out = \textcolor{ansi-cyan}{str}(\textcolor{ansi-cyan}{self}.dict\_words)
+        \textcolor{ansi-blue}{return} out
+
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{\_\_repr\_\_}(\textcolor{ansi-cyan}{self}):
+        out = \textcolor{ansi-cyan}{str}(\textcolor{ansi-cyan}{self}.dict\_words)
+        \textcolor{ansi-blue}{return} out
+
+    \textcolor{ansi-white}{\# Returns word}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{get\_word}(\textcolor{ansi-cyan}{self}, word):
+        \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{self}.dict\_words.get(word)
+
+    \textcolor{ansi-white}{\# Removes word}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{del\_word}(\textcolor{ansi-cyan}{self}, word):
+        \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{self}.dict\_words.pop(word)
+
+    \textcolor{ansi-white}{\# Return number of words}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{num\_words}(\textcolor{ansi-cyan}{self}):
+        \textcolor{ansi-blue}{return} \textcolor{ansi-cyan}{len}(\textcolor{ansi-cyan}{self}.dict\_words)
+
+    \textcolor{ansi-white}{\# Converts class to pandas DataFrame for further analysis}
+    \textcolor{ansi-blue}{def} \textcolor{ansi-green}{to\_pd\_dataframe}(\textcolor{ansi-cyan}{self}):
+        df\_plot = pd.DataFrame()
+        \textcolor{ansi-blue}{for} key \textcolor{ansi-magenta}{in} \textcolor{ansi-cyan}{self}.dict\_words:
+            word\_ll = \textcolor{ansi-cyan}{self}.dict\_words.get(key)
+            counts = []
+            doc\_cols = []
+            \textcolor{ansi-blue}{for} node \textcolor{ansi-magenta}{in} word\_ll:
+                counts.append(node.word\_count)
+                doc\_cols.append(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{doc}\textcolor{ansi-yellow}{'} + \textcolor{ansi-cyan}{str}(node.document\_num))
+            counts.append(word\_ll.sum\_words())
+            doc\_cols.append(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{sum}\textcolor{ansi-yellow}{'})
+            df\_to\_append = pd.DataFrame([counts], columns=doc\_cols, index=[key])
+            df\_plot = df\_plot.append(df\_to\_append)
+
+        \textcolor{ansi-blue}{return} df\_plot
+
+
+\textcolor{ansi-blue}{if} \textcolor{ansi-red}{\_\_name\_\_} == \textcolor{ansi-yellow}{"}\textcolor{ansi-yellow}{\_\_main\_\_}\textcolor{ansi-yellow}{"}:
+    docs = Documents(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{txt-for-assignment-data-science.txt}\textcolor{ansi-yellow}{'})
+    test\_node = docs.get\_word(\textcolor{ansi-yellow}{'}\textcolor{ansi-yellow}{the}\textcolor{ansi-yellow}{'})
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
